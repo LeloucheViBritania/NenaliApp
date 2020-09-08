@@ -1,0 +1,77 @@
+﻿@model FinalCaimanProject.Models.Contact
+
+    <main class="main-content">
+        <div class="block">
+            <div class="container-fluid">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-white">
+                        <li class="breadcrumb-item"><a href="/Contact/Contact">Contact</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Modifier le contact</li>
+                    </ol>
+                </nav>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="departmentDesc">
+                            <h1>@Html.DisplayFor(model => model.ContactName) @Html.DisplayFor(model => model.ContactPname)</h1>
+                        </div>
+                    </div>
+                </div>
+
+                @if (ViewBag.Message != null)
+                {
+                    <div class="container">
+                        <div class="alert alert-success container" role="alert">
+                            <h4 class="alert-heading">Effectué!!</h4>
+                            <p>Contact modifié avec succès</p>
+                        </div>
+                    </div>
+                }
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="simple-card">
+                            <div class="simple-card__content">
+                                <form action="#" class="formular" method="post">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6 mb-5">
+                                            <label for="nom">Nom</label>
+                                            <input type="text" class="form-control" id="ContactName" name="ContactName" value="@Html.DisplayFor(model => model.ContactName)">
+                                        </div>
+                                        <div class="form-group col-md-6 mb-5">
+                                            <label for="prenoms">Prénoms</label>
+                                            <input type="text" class="form-control" id="ContactPname" name="ContactPname" value="@Html.DisplayFor(model => model.ContactPname)">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6 mb-5">
+                                            <label for="email">Email</label>
+                                            <input type="email" class="form-control" id="ContactEmail" name="ContactEmail" value="@Html.DisplayFor(model => model.ContactEmail)">
+                                        </div>
+                                        <div class="form-group col-md-6 mb-5">
+                                            <label for="tel">Téléphone</label>
+                                            <input type="text" class="form-control" id="ContactNumber" name="ContactNumber" value="@Html.DisplayFor(model => model.ContactNumber)">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6 mb-5">
+                                            <label for="website">Site web</label>
+                                            <input type="text" class="form-control" id="ContactSite" name="ContactSite" value="@Html.DisplayFor(model => model.ContactSite)">
+                                        </div>
+                                        <div class="form-group col-md-6 mb-5">
+                                            <label for="role">Fonction</label>
+                                            <input type="text" class="form-control" id="ContactFonction" name="ContactFonction" value="@Html.DisplayFor(model => model.ContactFonction)">
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn-green">
+                                        Enregistrer
+                                    </button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>

@@ -1,0 +1,139 @@
+﻿@model FinalCaimanProject.VM.ProVm
+
+
+<main class="main-content">
+    <div class="block">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-white">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Tableau de bord</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Nouveau projet</li>
+                        </ol>
+                    </nav>
+                </div>
+
+                @if (ViewBag.Message != null)
+                {
+                    <div class="container">
+                        <div class="alert alert-success container" role="alert">
+                            <h4 class="alert-heading">Effectué!!</h4>
+                            <p>Vous venez de créer un nouveau projet</p>
+                        </div>
+                    </div>
+                }
+
+                <div class="col-12">
+                    <div class="departmentDesc">
+                        <h1>Nouveau projet</h1>
+                    </div>
+                </div>
+            </div>
+            @*Creation d'un projet le formulaire*@
+            @using (Html.BeginForm("Index", "NewProjet", FormMethod.Post, new { enctype = "multipart/form-data", @class = "formular" }))
+            {
+                <div class="row">
+                    <div class="col-12">
+                        <div class="simple-card">
+                            <div class="simple-card__content">
+                                <div class="form-group mb-5">
+                                    @Html.LabelFor(m => m.ProjetName, "Désignation du projet")
+                                    @Html.TextBoxFor(m => m.ProjetName, new { @class = "form-control required" })
+                                    <p class="text-danger">@ViewData["ProjetName"]</p>
+                                </div>
+                                <div class="form-group mb-5">
+                                    @Html.LabelFor(m => m.ProjetDescription, "Description")
+                                    @Html.TextAreaFor(m => m.ProjetDescription, new { @class = "form-control required" })
+                                    <p class="text-danger">@ViewData["Description"]</p>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 mb-5">
+                                        <label for="ProjetCahierCharge"></label>
+                                        @Html.LabelFor(m => m.ProjetCahierCharge, "Cahier des charges")
+                                        @Html.TextBoxFor(m => m.ProjetCahierCharge, new { @class = "form-control required", type = "file"})
+                                    <p class="text-danger"> @ViewData["Error"]</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="departmentDesc">
+                            <h1>@("Choix des membres")</h1>
+                        </div>
+                    </div>
+                    @foreach (var item in Model.Specialites)
+                    {
+
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="simple-card">
+                                <div class="simple-card__content">
+                                    <h3>@item.SpecialiteName</h3>
+                                    <ul class="dmembers-list">
+                                        @foreach (var data in Model.Members)
+                                        {
+                                            if (data.SpecialiteId == item.SpecialiteId)
+                                            {
+                                                <li>
+                                                    <div class="form__radio-group">
+                                                        <input type="checkbox" class="form__radio-input" id="@data.MemberId" name="@data.MemberId" value="@data.MemberId"/>
+                                                        <label class="form__radio-label" for="@data.MemberId">
+                                                            <span class="form__radio-button"></span>
+                                                            <div class="member-line">
+                                                                <div class="photo-box" style="border:1px solid @item.SpecialiteColor">
+                                                                    @if (data.MemberImageName != null)
+                                                                    {
+                                                                        <img src="/Fichier/@data.MemberImageName" alt="username" />
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <img src="/Content/img/user.png" alt="username" />
+                                                                    }
+
+                                                                </div>
+                                                                <div class="member-line__info">
+                                                                    <h4>@data.MemberName</h4>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <span>@data.MemberMissionActive mission(s) en cours</span>
+                                                                        @for (int i = 0; i < data.MemberNote;)
+                                                                        {
+                                                                            <div class="round"></div>
+                                                                            i++;
+                                                                        }
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                            }
+
+                                        }
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+                </div>
+
+                @*@Html.AntiForgeryToken()*@
+                <button type="submit" class="btn-green">
+                    Enregistrer
+                </button>
+
+            }
+
+
+        </div>
+    </div>
+</main>
+
+@*@section scripts{
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@

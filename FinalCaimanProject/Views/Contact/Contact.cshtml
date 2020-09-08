@@ -1,0 +1,87 @@
+﻿@model IEnumerable<FinalCaimanProject.Models.Contact>
+<main class="main-content">
+    <div class="block">
+        <div class="container-fluid">
+            <div class="position-relative ch">
+                <h1>Contacts</h1>
+                <form action="#" class="search-form" method="post">
+                    <input type="text" placeholder="rechercher" name="Searching" id="Searching">
+                    <button type="submit">
+                        <img src="~/Content/icons/search.svg" class="img-fluid" alt="search">
+                    </button>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-12 mb-5">
+
+                    <button>@Html.ActionLink("Nouveau Contact", "NewContact", null, new { @class = "btn-green" })</button>
+
+                </div>
+
+                @foreach (var item in ViewBag.Contact)
+                {
+
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                        <div class="simple-card">
+                            <div class="simple-card__content">
+                                <h2 class="mt-2">@item.ContactName @item.ContactPname</h2>
+                                <h3>@item.ContactFonction</h3>
+                                <ol class="contact-info mt-4 mb-5">
+                                    <li>
+                                        <img src="~/Content/icons/phone.svg" alt="phone">
+                                        <span>@item.ContactNumber</span>
+                                    </li>
+                                    <li>
+                                        <img src="~/Content/icons/email.svg" alt="mail">
+                                        <span>@item.ContactEmail</span>
+                                    </li>
+                                    <li>
+                                        <img src="~/Content/icons/globe.svg" alt="website">
+                                        <span>@item.ContactSite</span>
+                                    </li>
+                                </ol>
+                                <a href="/Contact/ModifContact/@item.ContactId">
+                                    <button class="btn-tlight">Modifier</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <div class="row mt-5 mb-5">
+                <div class="col-12 text-center">
+                    <ul class="pagination">
+                        @if (ViewBag.Page > ViewBag.MaxPage)
+                        {
+                            <li>
+                                <div>
+                                    @Html.ActionLink("Previous", "Contact", new { page = ViewBag.Page - 1 })
+                                </div>
+                            </li>
+                        }
+                        @if (ViewBag.MaxPage > ViewBag.MaxPage)
+                        {
+                            <li>
+                                <h4>@ViewBag.Page sur @ViewBag.MaxPage</h4>
+                            </li>
+                        }
+
+
+                        @if (ViewBag.Page < ViewBag.MaxPage)
+                        {
+                            <li>
+                                <div>
+                                    @Html.ActionLink("Next", "Contact", new { page = ViewBag.Page + 1 })
+                                </div>
+                            </li>
+                        }
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+

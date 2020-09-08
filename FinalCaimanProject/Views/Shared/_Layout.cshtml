@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caiman</title>
+    @Styles.Render("~/Template/css")
+    <link rel="shortcut icon" type="image/png" href="~/Content/img/logo-nan.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    @if (User.Identity.IsAuthenticated)
+    {
+        @Html.Partial("NavBarPartial/_NavBar")
+    }
+    @RenderBody()
+    @Scripts.Render("~/Template/js")
+   @*@RenderSection("scripts", required:false)*@
+</body>
+</html>

@@ -1,0 +1,286 @@
+﻿@model FinalCaimanProject.VM.ProDetailVm
+<main class="main-content">
+
+    <div class="block">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="departmentDesc">
+                        <h1>@Model.projetDetailDTO.ProjetName</h1>
+                        <p>
+                            @Model.projetDetailDTO.ProjetDescription
+                        </p>
+                        <div class="d-flex align-items-center">
+                            <a href="/Projet/Directive/@Model.projetDetailDTO.ProjetId">
+                                <button class="img-btn">
+                                    <ul>
+                                        <li>
+                                            <img src="" alt="">
+                                        </li>
+                                        <li>
+                                            <span>Cahier de charge</span>
+                                        </li>
+                                    </ul>
+                                </button>
+                            </a>
+                            &nbsp;&nbsp;
+                            @if (Model.projetDetailDTO.IsArchieved != true)
+                            {
+                                <a href="/Home/FinishProjet/@Model.projetDetailDTO.ProjetId">
+                                    <button class="btn-green">
+                                        projet terminer
+                                    </button>
+                                </a>
+                            }
+
+                        </div>
+                        <div class="simple-card">
+                            <div class="simple-card__progress mt-4">
+                                <div class="progress">
+                                    <div class="progression" style="width: @Model.projetDetailDTO.ProjetProgressBar%;"></div>
+                                </div>
+                                <span>@Model.projetDetailDTO.ProjetProgressBar%</span>
+                            </div>
+                        </div>
+                        <ul class="dmembers-list">
+                            @foreach (var item in Model.projetDetailDTO.MembersDTOs)
+                            {
+                              
+                                        <li>
+                                            <a href="#">
+                                                <div class="member-line">
+                                                    <div class="photo-box" style="border:1px solid @foreach (var specia in ViewBag.Specialites)
+                                                        {
+                                                            if (item.SpecialiteId == specia.SpecialiteId)
+                                                            {
+                                                                @specia.SpecialiteColor
+                                                            }
+                                                        }">
+                                                        @if (item.MemberImageName == null)
+                                                        {
+                                                            <img src="/Content/img/user.png" alt="username">
+                                                        }
+                                                        else
+                                                        {
+                                                            <img src="~/Fichier/@item.MemberImageName">
+                                                        }
+                                                    </div>
+                                                    <div class="member-line__info">
+                                                        <h4>@item.MemberName @item.MemberPnom</h4>
+                                                        <div class="d-flex align-items-center">
+                                                            <span>
+                                                                @foreach(var specia in ViewBag.Specialites)
+                                                                {
+                                                                    if(item.SpecialiteId == specia.SpecialiteId)
+                                                                    {
+                                                                        @specia.SpecialiteName
+                                                                    }
+                                                                }
+                                                             </span>&nbsp;
+                                                            @for (int i = 0; i < item.MemberNote; i++)
+                                                            {
+                                                                    <div class="round"></div>
+                                                            }
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+
+
+                            }
+
+                            @if (Model.projetDetailDTO.IsArchieved == false)
+                            {
+                                <li style="border-bottom: none;">
+                                    <a href="#" data-toggle="modal" data-target="#exampleModalLong">
+                                        <div class="member-line">
+                                            <div class="photo-box">
+                                                <img src="/Content/icons/add.svg" alt="username">
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-6">
+                    @{ var count = 0;
+                        var cot = Model.projetDetailDTO.NotePDTOs.Count();}
+                    <h2 class="mb-5">notes _ <small>@cot notes</small></h2>
+                    <div class="simple-card">
+                        <div class="simple-card__content">
+                            <ol class="onote-list mb-5">
+                                @foreach (var item in Model.projetDetailDTO.NotePDTOs.OrderByDescending(s => s.NotePId))
+                                {
+                                    if (count < 1)
+                                    {
+                                        <li>
+                                            <div class="onote">
+                                                <span>@item.NotePDate.ToString("dd MMM yyyy")</span>
+                                                <p class="pgh">
+                                                    @item.NotePDescription
+                                                </p>
+                                                <a href="/Notes/DetailsNote/@item.NotePId" class="link">Lire la suite</a>
+                                            </div>
+                                        </li>
+                                    }
+                                    count++;
+                                }
+
+                            </ol>
+                            <div class="d-flex align-items-center">
+                                <a href="/Notes/NotesOnProjet/@Model.projetDetailDTO.ProjetId">
+                                    <button class="img-btn">
+                                        <span>Plus</span>
+                                    </button>
+                                </a>
+                                &nbsp;&nbsp;
+                                @if (Model.projetDetailDTO.IsArchieved == false)
+                                {
+                                    <a href="/Notes/AddNotes/@Model.projetDetailDTO.ProjetId">
+                                        <button class="btn-green">
+                                            Nouvelle note
+                                        </button>
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-6">
+                    @if (Model.projetDetailDTO.IsArchieved == false)
+                    {
+                        <h2 class="mb-5">Paramètres</h2>
+                        <div class="simple-card__content mb-5">
+                            <a href="#" data-toggle="modal" data-target="#progressModal">
+                                <button class="btn-green">
+                                    Augmenter la progression
+                                </button>
+                            </a>
+                            <p class="text-danger">@ViewData["NameError"]</p>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="progressModal" tabindex="-1" role="dialog" aria-labelledby="progressModalTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content my-modal">
+                                    <div class="modal-header br-none">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Actuellement : @Model.projetDetailDTO.ProjetProgressBar %</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="#" class="formular" method="post">
+                                            <div class="form-group">
+                                                <p class="text-danger">@ViewData["NameError"]</p>
+                                                <input type="number" class="form-control" id="ProjetProgressBar" name="ProjetProgressBar" placeholder="progression du projet" value="@Model.projetDetailDTO.ProjetProgressBar">
+                                            </div>
+                                            <button type="submit" class="btn-green">valider</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                    @if (Model.projetDetailDTO.ProjetObservationFinal != null)
+                    {
+                            <h2>Bilan du projet</h2>
+                            <div class="simple-card">
+                                <p style="font-size:13px">@Model.projetDetailDTO.ProjetObservationFinal</p>
+                            </div>
+                    }
+                </div>
+                
+
+            </div>
+
+        </div>
+    </div>
+</main>
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content my-modal">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Ajouter des membres</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post">
+                    <ul class="dmembers-list">
+
+
+
+
+                        @foreach (var item in Model.Members)
+                        {
+
+                            <li>
+                                <div class="form__radio-group">
+
+                                    <input type="checkbox" class="form__radio-input" id="@item.MemberId" name="@item.MemberId" value="@item.MemberId" />
+                                    <label class="form__radio-label" for="@item.MemberId">
+                                        <span class="form__radio-button"></span>
+                                        <div class="member-line">
+                                            <div class="photo-box" style="border:1px solid @foreach (var specia in ViewBag.Specialites)
+                                                {
+                                                    if (item.SpecialiteId == specia.SpecialiteId)
+                                                    {
+                                                        @specia.SpecialiteColor
+                                            }
+                                        }">
+                                                @if (item.MemberImageName == null)
+                                                {
+                                                    <img src="/Content/img/user.png" alt="username">
+                                                }
+                                                else
+                                                {
+                                                    <img src="/Fichier/@item.MemberImageName">
+                                                }
+                                            </div>
+                                            <div class="member-line__info">
+                                                <h4>@item.MemberName</h4>
+                                                <div class="d-flex align-items-center">
+                                                    <span>
+                                                        @foreach (var spName in ViewBag.Specialites)
+                                                        {
+                                                            if (spName.SpecialiteId == item.SpecialiteId)
+                                                            {
+                                                                @spName.SpecialiteName
+                                                            }
+
+                                                        }
+                                                        -
+                                                    </span>&nbsp;
+                                                    @for (int i = 0; i < item.MemberNote - 1; i++)
+                                                    {
+                                                        <div class="round"></div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+
+                    <br>
+                    <button type="submit" class="btn-green">Enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

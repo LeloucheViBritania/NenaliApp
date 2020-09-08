@@ -1,0 +1,219 @@
+﻿@model FinalCaimanProject.Models.Specialite
+<main class="main-content">
+
+    <div class="block">
+        <div class="container-fluid">
+            <div class="row department-row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="team-card" style="border:1.5px solid @Model.SpecialiteColor">
+                                <div class="team-card__illustration">
+                                    <img src="@Html.DisplayFor(model => model.Url_Image)/@Html.DisplayFor(model => model.ImageSpecialite)" alt="departement">
+                                </div>
+                                <div class="mt-5">
+                                    <button class="btn-green" data-toggle="modal" data-target="#respo">Choisir le chef</button>
+                                    <button class="btn-tlight" data-toggle="modal" data-target="#vicerespo">choisir l'adjoint</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="departmentDesc">
+                        <h1>Membres de groupe @Html.DisplayFor(model => model.SpecialiteName)</h1>
+                        <p>
+                           @Model.SpecialiteInfo
+                        </p>
+                        <ul class="dmembers-list">
+                            @foreach (var item in ViewBag.Membern)
+                            {
+
+                                <li>
+                                    <a href="/Departement/ProfilMember/@item.MemberId">
+                                        <div class="member-line">
+                                            <div class="photo-box" style="border:2px solid @Html.DisplayFor(model => model.SpecialiteColor)">
+                                                @if (item.MemberImageName != null)
+                                                {
+                                                    <img src="/Fichier/@item.MemberImageName" alt="username">
+                                                }
+                                                else
+                                                {
+                                                    <img src="/Content/img/user.png" alt="username">
+                                                }
+
+                                            </div>
+                                            <div class="member-line__info">
+                                                <h4>@item.MemberName @item.MemberPnom</h4>
+                                                <div class="d-flex align-items-center">
+                                                    <span>@item.MemberStatus -</span>&nbsp;
+                                                    @for (int i = 0; i < item.MemberNote;)
+                                                    {
+                                                        <div class="round"></div>
+                                                        i++;
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            }
+
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+<div class="modal fade" id="respo" tabindex="-1" role="dialog" aria-labelledby="respoTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content my-modal">
+            <div class="modal-header">
+                <h5 class="modal-title" id="respoTitle">Choix du responsable de département</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post">
+                    <ul class="dmembers-list">
+                        @foreach (var item in ViewBag.Membern)
+                        {
+                            <li>
+                                <div class="form__radio-group">
+                                    <input type="checkbox" class="form__radio-input" value="@item.MemberId" id="user1" name="MemberId">
+                                    <label for="user1" class="form__radio-label">
+                                        <span class="form__radio-button"></span>
+                                        <div class="member-line">
+                                            <div class="photo-box @Html.DisplayFor(model => model.SpecialiteColor)">
+                                                @if (item.MemberImageName != null)
+                                                {
+                                                    <img src="/Fichier/@item.MemberImageName" alt="username">
+                                                }
+                                                else
+                                                {
+                                                    <img src="/Content/img/user.png" alt="username">
+                                                }
+
+                                            </div>
+                                            <div class="member-line__info">
+                                                <h4>@item.MemberName @item.MemberPnom</h4>
+                                                <div class="d-flex align-items-center">
+                                                    @for (int i = 0; i < item.MemberNote;)
+                                                    {
+                                                        <div class="round"></div>
+                                                        i++;
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+
+                    <br>
+                    <button type="submit" class="btn-green">Valider</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="vicerespo" tabindex="-1" role="dialog" aria-labelledby="vicerespoTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content my-modal">
+            <div class="modal-header">
+                <h5 class="modal-title" id="vicerespoTitle">Choix du responsable adjoint de département</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post">
+                    <ul class="dmembers-list">
+                        @{ var ce = 0;}
+                        @foreach (var item in ViewBag.Respo)
+                        {
+                            if (ce < 1)
+                            {
+                                <li>
+                                    <h3>Responsable</h3>
+                                    <div class="member-line" style="margin-bottom: 4rem;">
+                                        <div class="photo-box @Html.DisplayFor(model => model.SpecialiteColor)">
+                                            @if (@item.MemberImageName != null)
+                                            {
+                                                <img src="/Fichier/@item.MemberImageName" alt="username">
+                                            }
+                                            else
+                                            {
+                                                <img src="/Content/img/user.png" alt="username">
+                                            }
+
+                                        </div>
+                                        <div class="member-line__info">
+                                            <h4>@item.MemberName @item.MemberPnom</h4>
+                                            <div class="d-flex align-items-center">
+                                                @for (int i = 0; i < item.MemberNote;)
+                                                {
+                                                    <div class="round"></div>
+                                                    i++;
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                            ce++;
+                        }
+
+                        @foreach (var item in ViewBag.Adj)
+                        {
+                            <li>
+                                <div class="form__radio-group">
+                                    <input type="radio" class="form__radio-input" value="@item.MemberId" id="sousrepo1" name="MemberId">
+                                    <label for="sousrepo1" class="form__radio-label">
+                                        <span class="form__radio-button"></span>
+                                        <div class="member-line">
+                                            <div class="photo-box @Html.DisplayFor(model => model.SpecialiteColor)">
+                                                @if (@item.MemberImageName != null)
+                                                {
+                                                    <img src="/Fichier/@item.MemberImageName" alt="username">
+                                                }
+                                                else
+                                                {
+                                                    <img src="/Content/img/user.png" alt="username">
+                                                }
+
+                                            </div>
+                                            <div class="member-line__info">
+                                                <h4>@item.MemberName @item.MemberPnom</h4>
+                                                <div class="d-flex align-items-center">
+                                                    @for (int i = 0; i < item.MemberNote;)
+                                                    {
+                                                        <div class="round"></div>
+                                                        i++;
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </li>
+                        }
+
+                    </ul>
+
+                    <br>
+                    <button type="submit" class="btn-green">Valider</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

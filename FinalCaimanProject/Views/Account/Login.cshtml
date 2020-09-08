@@ -1,0 +1,36 @@
+﻿@model FinalCaimanProject.VM.LoginViewModel
+
+
+<div class="loginpage">
+
+    <div class="login-card">
+        <div class="login-card__img-box">
+            &nbsp;
+        </div>
+        <div class="login-card__content">
+            <h1>Bienvenue</h1>
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "formular mb-5", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-g roup mb-4">
+                    @Html.TextBoxFor(m => m.UserMail, new { @class = "form-control", @placeholder = "Adresse Mail" })
+                    @Html.ValidationMessageFor(m => m.UserMail, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Mot de passe" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+                <p class="error-message">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                </p>
+                <p class="text-danger">@ViewData["MessageError"]</p>
+                <br>
+                <button type="submit" class="btn-green">Connexion</button>
+                
+            }
+
+            <small>&copy; Caiman admin - all rights reserved</small>
+        </div>
+    </div>
+</div>

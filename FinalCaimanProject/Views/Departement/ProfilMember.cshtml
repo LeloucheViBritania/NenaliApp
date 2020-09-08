@@ -1,0 +1,492 @@
+﻿@model FinalCaimanProject.VM.ProfilMVM
+<main class="main-content">
+    <div class="block">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+
+                    @if (Model.ProfilMemberDTO.MemberIsArchived == true)
+                    {
+                    <div class="user-photo-card archive" style="border:2px solid @foreach (var specia in Model.Specialites)
+                                        {
+                                            if (Model.ProfilMemberDTO.SpecialiteId == specia.SpecialiteId)
+                                            {
+                                                @specia.SpecialiteColor
+                                            }
+                                        }">
+                        @if (Model.ProfilMemberDTO.MemberImageName != null)
+                        {
+                            <img src="/Fichier/@Html.DisplayFor(model => model.ProfilMemberDTO.MemberImageName)" alt="username">
+                        }
+                        else
+                        {
+                            <img src="/Content/img/user.png" alt="username">
+                        }
+
+                    </div>
+                    }
+                    else
+                    {
+                <div class="user-photo-card" style="border:2px solid @foreach (var specia in Model.Specialites)
+                                        {
+                                            if (Model.ProfilMemberDTO.SpecialiteId == specia.SpecialiteId)
+                                            {
+                                                @specia.SpecialiteColor
+                                            }
+                                        }">
+                    @if (Model.ProfilMemberDTO.MemberImageName != null)
+                    {
+                        <img src="/Fichier/@Html.DisplayFor(model => model.ProfilMemberDTO.MemberImageName)" alt="username">
+                    }
+                    else
+                    {
+                        <img src="/Content/img/user.png" alt="username">
+                    }
+                </div>
+                    }
+
+
+                    <div class="simple-card mt-5">
+                        <div class="simple-card__content">
+
+                            <h2 class="mt-2 --mini">Réseaux</h2>
+
+                            <div class="row mt-5">
+                                <div class="col-12">
+                                    @foreach (var item in Model.ProfilMemberDTO.SocialNetworks)
+                                    {
+                                        <div class="mb-4 brb">
+                                            <h5>@item.NetworkName:</h5>
+                                            <h3><a href="@item.NetworkLink" target="_blank">@item.NetworkLink</a></h3>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                    <div class="simple-card">
+                        <div class="simple-card__content">
+                            <ol class="deptlist ">
+                                <li>
+                                    <div class="square" style="background-color:@foreach (var specia in Model.Specialites)
+                                                        {
+                                                            if (Model.ProfilMemberDTO.SpecialiteId == specia.SpecialiteId)
+                                                            {
+                                                                @specia.SpecialiteColor
+                                                            }
+                                                        }">
+                                        &nbsp;
+                                    </div>
+                                </li>
+                                <li>
+                                    <h5>
+                                        @foreach (var specia in Model.Specialites)
+                                        {
+                                            if (Model.ProfilMemberDTO.SpecialiteId == specia.SpecialiteId)
+                                            {
+                                                @specia.SpecialiteName
+                                            }
+                                        }
+                                    </h5>
+                                </li>
+                            </ol>
+                            <h2 class="mt-2">@Html.DisplayFor(model => model.ProfilMemberDTO.MemberName) @Html.DisplayFor(model => model.ProfilMemberDTO.MemberPnom)</h2>
+                            <div class="d-flex align-items-center">
+                                <span>@Model.ProfilMemberDTO.MemberStatus--</span>&nbsp;
+                                @for (int i = 0; i < Model.ProfilMemberDTO.MemberNote;)
+                                {
+                                    <div class="round"></div>
+                                    i++;
+                                }
+                            </div>
+                            <p>@Html.DisplayFor(model => model.ProfilMemberDTO.MemberDescription)</p>
+                            <div class="d-flex align-items-center">
+                                
+                                    <div class="dash-zone">
+                                        @if (@Html.DisplayFor(model => model.ProfilMemberDTO.MemberMissonFin) == null)
+                                        {
+                                            <h4>0 mission</h4>
+                                        }
+                                        else
+                                        {
+                                            <h4>@Html.DisplayFor(model => model.ProfilMemberDTO.MemberMissonFin) missions</h4>
+                                        }
+                                    </div>
+                               
+                                &nbsp; &nbsp;
+                                
+                                    <div class="dash-zone --continue">
+                                        @if (@Html.DisplayFor(model => model.ProfilMemberDTO.MemberMissionActive) == null)
+                                        {
+                                            <h4>0 missions en cours</h4>
+                                        }
+                                        else
+                                        {
+                                            <h4>@Html.DisplayFor(model => model.ProfilMemberDTO.MemberMissionActive) missions en cours</h4>
+                                        }
+
+                                    </div>
+                               
+                                &nbsp; &nbsp;
+                                @if (Model.ProfilMemberDTO.MemberIsArchived == true)
+                                {
+                                    <form action="#" method="post">
+                                        <button type="submit" value="false" class="my-btn-red" name="MemberIsArchived">
+                                            Restaurer
+                                        </button>
+                                    </form>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="simple-card">
+                        <div class="simple-card__content">
+
+                            <h2 class="mt-2 --mini">Informations</h2>
+
+                            <div class="row mt-5">
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="mb-4 brb">
+                                        <h5>Nom:</h5>
+                                        <h3>@Html.DisplayFor(model => model.ProfilMemberDTO.MemberName)</h3>
+                                    </div>
+                                    <div class="mb-4 brb">
+                                        <h5>Prénoms:</h5>
+                                        <h3>@Html.DisplayFor(model => model.ProfilMemberDTO.MemberPnom)</h3>
+                                    </div>
+                                    <div class="mb-4 brb">
+                                        <h5>Sexe:</h5>
+                                        <h3>@Html.DisplayFor(model => model.ProfilMemberDTO.MemberSex)</h3>
+                                    </div>
+                                    <div class="mb-4 brb">
+                                        <h5>Date de naissance:</h5>
+                                        <h3>@Model.ProfilMemberDTO.MemberNaissance.ToString("dd MMMM yyyy")</h3>
+                                    </div>
+                                    <div class="mb-4">
+                                        <h5>Lieu de naissance:</h5>
+                                        <h3>@Html.DisplayFor(model => model.ProfilMemberDTO.MemberLieuNaissance)</h3>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="mb-4 brb">
+                                        <h5>Commune:</h5>
+                                        <h3>@Html.DisplayFor(model => model.ProfilMemberDTO.MemberCommune)</h3>
+                                    </div>
+                                    <div class="mb-4 brb">
+                                        <h5>Quartier d'habtation:</h5>
+                                        <h3>@Html.DisplayFor(model => model.ProfilMemberDTO.MemberQuartier)</h3>
+                                    </div>
+                                    <div class="mb-4 brb">
+                                        <h5>Téléphone:</h5>
+                                        <h3>@Html.DisplayFor(model => model.ProfilMemberDTO.MemberPhone)</h3>
+                                    </div>
+                                    <div class="mb-4 brb">
+                                        <h5>Mail:</h5>
+                                        <h3>@Html.DisplayFor(model => model.ProfilMemberDTO.MemberMail)</h3>
+                                    </div>
+                                    <div class="mb-4">
+                                        <h5>Transport utilisé:</h5>
+                                        <h3>
+                                            @foreach (var item in Model.Transports)
+                                            {
+                                                if (item.TransportId == Model.ProfilMemberDTO.TransportId)
+                                                {
+                                                    @item.TranportName
+                                                }
+                                            }
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="simple-card">
+                    <div class="simple-card__content">
+
+                        <h2 class="mt-2 --mini">Compétences</h2>
+
+                        <div class="row mt-5">
+                            <div class="col-12">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Compétences</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{ var ite = 1;}
+                                        @foreach (var item in Model.ProfilMemberDTO.Competences)
+                                        {
+                                            <tr>
+                                                <th scope="row">@ite</th>
+                                                <td>@item.CompetenceName</td>
+                                            </tr>
+                                            ite++;
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="simple-card">
+                    <div class="simple-card__content">
+
+                        <h2 class="mt-2 --mini">Paramètres</h2>
+
+                        <div class="row mt-5">
+                            <div class="col-12">
+                                <div id="accordion">
+
+                                    <!-- #1 -->
+                                    <div class="card">
+                                        <div class="card-header cp" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <p class="acctitle">Mettre à jour la photo</p>
+                                        </div>
+                                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <form action="#" class="formular" method="post" enctype="multipart/form-data">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-12 mb-5">
+                                                            <label for="teuf">Photo de profil</label>
+                                                            <input type="file" class="form-control" id="MemberImageName" name="MemberImageName" required>
+                                                        </div>
+                                                        <button type="submit" class="btn-green">
+                                                            Valider
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- #2 -->
+                                    <div class="card">
+                                        <div class="card-header cp" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            <p class="acctitle">Mettre à jour les infos</p>
+                                        </div>
+                                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <form action="#" class="formular" method="post">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6 mb-5">
+                                                            <label for="nom">Nom</label>
+                                                            <input type="text" class="form-control" name="MemberName" value="@Html.DisplayFor(model => model.ProfilMemberDTO.MemberName)" required>
+                                                        </div>
+                                                        <div class="form-group col-md-6 mb-5">
+                                                            <label for="prenoms">Prénoms</label>
+                                                            <input type="text" class="form-control" name="MemberPnom" value="@Html.DisplayFor(model => model.ProfilMemberDTO.MemberPnom)" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6 mb-5">
+                                                            <label for="trsp">Sexe</label>
+                                                            <select id="trsp" class="form-control" name="MemberSex" required>
+                                                                <option selected>Masculin</option>
+                                                                <option>Féminin</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group mb-5">
+                                                        <label for="exampleFormControlTextarea1">Description</label>
+                                                        <textarea class="form-control" name="MemberDescription" rows="5" required>@Model.ProfilMemberDTO.MemberDescription</textarea>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6 mb-5">
+                                                            <label for="email">Email</label>
+                                                            <input type="email" class="form-control" id="email" name="MemberMail" value="@Html.DisplayFor(model => model.ProfilMemberDTO.MemberMail)">
+                                                        </div>
+                                                        <div class="form-group col-md-6 mb-5">
+                                                            <label for="tel">Téléphone</label>
+                                                            <input type="text" class="form-control" name="MemberPhone" value="@Html.DisplayFor(model => model.ProfilMemberDTO.MemberPhone)" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6 mb-5">
+                                                            <label for="com">Commune d'habitation</label>
+                                                            <input value="@Html.DisplayFor(model => model.ProfilMemberDTO.MemberCommune)" name="MemberCommune" type="text" class="form-control" required>
+                                                        </div>
+                                                        <div class="form-group col-md-6 mb-5">
+                                                            <label for="tierk">Quartier de résidence</label>
+                                                            <input type="text" class="form-control" value="@Html.DisplayFor(model => model.ProfilMemberDTO.MemberQuartier)" name="MemberQuartier" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6 mb-5">
+                                                            <label for="trsp">Transport utilisé</label>
+                                                            <select id="trsp" class="form-control" name="Transport" required>
+                                                                <option value="TranportName">
+                                                                    @foreach (var item in Model.Transports)
+                                                                    {
+                                                                        if (Model.ProfilMemberDTO.TransportId == item.TransportId)
+                                                                        {
+                                                                            @item.TranportName
+                                                                        }
+                                                                    }
+                                                                </option>
+                                                                <option>Bus</option>
+                                                                <option>Taxi communal</option>
+                                                                <option>Véhicule personnel</option>
+                                                                <option>Compteur</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-6 mb-5">
+                                                            <label for="trsp">Mon Statut</label>
+                                                            <select id="trsp" class="form-control" name="MemberStatus" required>
+                                                                <option value="@Html.DisplayFor(model => model.ProfilMemberDTO.MemberStatus)">@Html.DisplayFor(model => model.ProfilMemberDTO.MemberStatus)</option>
+                                                                <option value="Membre simple">Membre simple</option>
+                                                                <option value="Adjoint">Adjoint</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn-green">
+                                                        Enregistrer
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- #3 -->
+                                    <div class="card">
+                                        <div class="card-header cp" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            <p class="acctitle">Mettre à jour les compétences</p>
+                                        </div>
+                                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <form action="#" class="formular" method="post">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-12 mb-5">
+                                                            <label for="comp">Compétence</label>
+                                                            <input type="text" class="form-control" id="comp" name="CompetenceName" required>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn-green">
+                                                        Ajouter
+                                                    </button>
+                                                </form>
+                                                <hr class="mt-5 mb-5">
+                                                <form action="#" class="formular" method="post">
+                                                    <div class="form__group">
+
+                                                        @foreach (var item in Model.ProfilMemberDTO.Competences)
+                                                        {
+                                                            <div class="form__radio-group">
+                                                                <input type="checkbox" class="form__radio-input" id="small" name="size" required>
+                                                                <label for="small" class="form__radio-label">
+                                                                    <span class="form__radio-button"></span>
+                                                                    @item.CompetenceName
+                                                                </label>
+                                                            </div>
+                                                        }
+
+                                                    </div>
+                                                    <button type="submit" class="btn-green">
+                                                        Supprimer
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- #4 -->
+                                    <div class="card">
+                                        <div class="card-header cp" id="headingFour" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                            <p class="acctitle">Mettre à jour la note</p>
+                                        </div>
+                                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <form action="#" class="formular" method="post">
+                                                    <div class="form-group col-md-6 mb-5">
+                                                        <select id="MemberNote" name="MemberNote" class="form-control">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                        </select>
+                                                    </div>
+                                                    <button type="submit" class="btn-green">
+                                                        Enregistrer
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- #5 -->
+                                    <div class="card">
+                                        <div class="card-header cp" id="headingFive" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                            <p class="acctitle">Mettre à jour les réseaux</p>
+                                        </div>
+                                        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <form action="#" class="formular" method="post">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6 mb-5">
+                                                            <label for="res">Réseau</label>
+                                                            <input type="text" class="form-control" id="res" name="NetworkName" required>
+                                                        </div>
+                                                        <div class="form-group col-md-6 mb-5">
+                                                            <label for="link">Lien</label>
+                                                            <input type="text" class="form-control" id="link" name="NetworkLink" required>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn-green">
+                                                        Ajouter
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-12 mt-5">
+                                @if (Model.ProfilMemberDTO.MemberIsArchived == false)
+                                {
+                                    <button class="my-btn-red" data-toggle="modal" data-target="#exampleModalCenter">Archiver le membre</button>
+                                }
+
+                                <!-- Modal -->
+                                <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content my-modal">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Archivage</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p class="paragraph">
+                                                    Êtes-vous de vouloir archiver ce membre ?
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form action="#" method="post">
+                                                    <button type="submit" value="true" class=" my-btn-red" name="MemberIsArchived">Archiver</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</main>

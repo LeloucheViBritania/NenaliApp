@@ -1,0 +1,91 @@
+﻿@model  FinalCaimanProject.VM.OldVm
+<main class="main-content">
+    <div class="block">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="departmentDesc">
+                        <h1>Anciens membres</h1>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <ul class="dmembers-list">
+                        @foreach (var OneMember in Model.OldMembers)
+                        {
+                            <li>
+                                <a href="@Url.Action("ProfilMember", "Departement", new { id=OneMember.MemberId})">
+                                    <div class="member-line position-relative">
+                                        <div class="photo-box" style="border:2px solid @foreach (var specia in Model.Specialites)
+                                        {
+                                            if (OneMember.SpecialiteId == specia.SpecialiteId)
+                                            {
+                                                @specia.SpecialiteColor
+                                            }
+                                        }">
+                                            @if (OneMember.MemberImageName == null)
+                                            {
+                                                <img src="~/Content/img/user.png" alt="username">
+                                            }
+                                            else
+                                            {
+                                                <img src="/Fichier/@OneMember.MemberImageName" alt="username">
+                                            }
+
+                                        </div>
+                                        <div class="member-line__info">
+                                            <h4>@OneMember.MemberName @OneMember.MemberPnom</h4>
+                                            <div class="d-flex align-items-center">
+                                                <span>Archivé le @OneMember.MemberDateArchive.ToString("dd MMM yyyy") -</span>&nbsp;
+                                                @for (int i = 0; i < OneMember.MemberNote;)
+                                                {
+                                                    <div class="round"></div>
+                                                    i++;
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="restore">
+                                            <span>Profil</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="row mt-5 mb-5">
+                <div class="col-12 text-center">
+                    <ul class="pagination">
+                        @if (ViewBag.Page >= ViewBag.MaxPage || ViewBag.Page < ViewBag.MaxPage)
+                        {
+                            <li>
+                                <div>
+                                    @Html.ActionLink("Previous", "OldMembers", new { page = ViewBag.Page - 1 })
+                                </div>
+                            </li>
+                        }
+                        
+                        @if (ViewBag.MaxPage >= 0)
+                        {
+                            <li>
+                                <h4>@ViewBag.Page sur @ViewBag.MaxPage</h4>
+                            </li>
+                        }
+
+
+                        @if (ViewBag.Page <= ViewBag.MaxPage)
+                        {
+                            <li>
+                                <div>
+                                    @Html.ActionLink("Next", "OldMembers", new { page = ViewBag.Page + 1 })
+                                </div>
+                            </li>
+                        }
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

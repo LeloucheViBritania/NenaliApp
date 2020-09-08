@@ -1,0 +1,72 @@
+﻿@model FinalCaimanProject.VM.NoteAddProDetailDTO
+<main class="main-content">
+    <div class="block">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-white">
+                            <li class="breadcrumb-item"><a href="@Url.Action("ProjetDetail", "Projet", new { id =Model.ProjetId})">Projet</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Notes</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-12">
+                    <div class="departmentDesc">
+                        <h1>@Model.ProjetName</h1>
+                        <p>
+                            @Model.ProjetDescription
+                        </p>
+                        @if (Model.IsArchieved != true)
+                        {
+                            <a href="@Url.Action("AddNotes", "Notes", new { id = Model.ProjetId })">
+                                <button class="btn-green">Nouvelle note</button>
+                            </a>
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var item in Model.NotePDTOs.OrderByDescending(c => c.NotePDate))
+                {
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+
+                        <div class="simple-card">
+                            <div class="simple-card__content">
+                                <h3>@item.NotePDate.ToString("dd MMM yyyy")</h3>
+                                <p>
+                                    @item.NotePDescription
+                                </p>
+                                <a href="@Url.Action("DetailsNote", "Notes", new { id = item.NotePId})" class="link">
+                                    Lire la suite
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            @*<div class="row mt-5 mb-5">
+                <div class="col-12 text-center">
+                    <ul class="pagination">
+                        <li>
+                            <div>
+                                <img src="~/Content/icons/arrowb.svg" class="rotate" alt="arrow">
+                            </div>
+                        </li>
+                        <li>
+                            <h4>2 sur ~2</h4>
+                        </li>
+                        <li>
+                            <div>
+                                <img src="~/Content/icons/arrowb.svg" alt="arrow">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>*@
+        </div>
+    </div>
+</main>
+

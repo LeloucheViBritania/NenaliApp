@@ -1,0 +1,67 @@
+﻿@model FinalCaimanProject.VM.RegisterViewModel
+
+@if (ViewBag.Message != null)
+{
+    <div class="container">
+        <div class="alert alert-success container" role="alert">
+            <h4 class="alert-heading">Effectué!!</h4>
+            <p>Utilisateur enregistré avec succès</p>
+        </div>
+    </div>
+}
+
+<div class="loginpage">
+    <div class="login-card">
+        <div class="login-card__img-box">
+            &nbsp;
+        </div>
+        <div class="login-card__content">
+            <h1>Créer un compte</h1>
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "formular mb-5", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-5">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Nom" })
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.UserPnom, new { @class = "form-control", @placeholder = "Prénoms" })
+                        @Html.ValidationMessageFor(m => m.UserPnom, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group mb-4">
+                    @Html.TextBoxFor(m => m.UserMail, new { @class = "form-control", @placeholder = "Adresse Mail" })
+                    @Html.ValidationMessageFor(m => m.UserMail, "", new { @class = "text-danger" })
+                    <p class="text-danger">@ViewData["ErrorMail"]</p>
+                </div>
+                <div class="form-group mb-4">
+                    @Html.TextBoxFor(m => m.UserSexe, new { @class = "form-control", @placeholder = "Sexe" })
+                    @Html.ValidationMessageFor(m => m.UserSexe, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group mb-4">
+                    @Html.TextBoxFor(m => m.UserPhone, new { @class = "form-control", @placeholder = "Téléphone(+225 02030405)" })
+                    @Html.ValidationMessageFor(m => m.UserPhone, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6 mb-5">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Mot de Passe" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group mb-4">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirmation du Mot de Passe" })
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn-green" value="S'inscrire" />
+                    </div>
+                </div>
+
+            }
+            <small>&copy; Caiman admin - all rights reserved</small>
+        </div>
+    </div>
+</div>

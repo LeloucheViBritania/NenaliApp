@@ -1,0 +1,105 @@
+﻿
+@model FinalCaimanProject.VM.AllProjets
+<main class="main-content">
+    <div class="block">
+        <div class="container-fluid">
+            <div class="row">
+                @foreach (var item in ViewBag.Alls)
+                {
+
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                        <a href="@Url.Action("ProjetDetail","Projet", new { id= item.ProjetId})">
+                            <div class="simple-card">
+                                <div class="simple-card__content">
+                                    <span>Terminé le @item.ProjetDateFin.ToString("dd MMM yyyy")</span>
+                                    <h2 class="mt-2">@item.ProjetName</h2>
+                                    <p>
+                                        @item.ProjetObservationFinal
+                                    </p>
+                                    <div class="members">
+                                        <span>membres</span>
+
+                                        <ul class="mb-0 mt-3">
+                                            @foreach (var mbr in item.MembersDTOs)
+                                            {
+
+                                                {
+
+                                                    <li>
+                                                        <div style="border:1px solid @foreach (var specia in Model.Specialites)
+                                                        {
+                                                            if (mbr.SpecialiteId == specia.SpecialiteId)
+                                                            {
+                                                                @specia.SpecialiteColor
+                                                            }
+                                                        } ">
+
+                                                            @if (mbr.MemberImageName != null)
+                                                            {
+                                                                <img src="/Fichier/@mbr.MemberImageName" class="rounduser" alt="@mbr.MemberName" title="@mbr.MemberName">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img src="/Content/img/user.png" class="rounduser" alt="@mbr.MemberName" title="@mbr.MemberName">
+                                                            }
+                                                        </div>
+                                                    </li>
+                                                }
+
+                                            }
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <div class="simple-card__progress mt-4 text-center justify-content-center">
+                                    <div>
+                                        <img src="/Content/icons/start.svg" class="finish-icon img-fluid" alt="finished">
+                                        <h4 class="mt-2 cl-teal">@item.ProjetMoney</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+
+            </div>
+            <div class="row mt-5 mb-5">
+                <div class="col-12 text-center">
+                    <ul class="pagination">
+                        @if (ViewBag.Page >= ViewBag.MaxPage || ViewBag.Page < ViewBag.MaxPage && ViewBag.Page != 0)
+                        {
+                            <li>
+                                <div>
+                                    @Html.ActionLink("Previous", "ArchiveAllProjet", new { page = ViewBag.Page - 1 })
+                                </div>
+                            </li>
+                        }
+                       
+                        @*@if (ViewBag.MaxPage <= 0)
+                        {
+                            <li>
+                                <h4>@ViewBag.Page sur @ViewBag.MaxPage</h4>
+                            </li>
+                        }*@
+
+
+                        @if (ViewBag.Page < ViewBag.MaxPage)
+                        {
+                            <li>
+                                <div>
+                                    @Html.ActionLink("Next", "ArchiveAllProjet", new { page = ViewBag.Page + 1 })
+                                </div>
+                            </li>
+                        }
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+

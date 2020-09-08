@@ -1,0 +1,48 @@
+﻿@model FinalCaimanProject.Models.NoteP
+
+<main class="main-content">
+    <div class="block">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-white">
+                            <li class="breadcrumb-item"><a href="@Url.Action("ProjetDetail", "Projet", new { id = Model.Projet.ProjetId})">Projet</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Nouvelle note</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-12">
+                    <div class="departmentDesc">
+                        <h1>@Model.Projet.ProjetName</h1>
+                        <p>
+                            @Model.Projet.ProjetDescription
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="mb-5">Note du @Model.NotePDate.ToString("dd MMM yyy")</h2>
+                    <div class="simple-card">
+                        <div class="simple-card__content">
+                            <div class="unlimited">
+                                <p>
+                                    @Model.NotePDescription
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/Notes/NotesOnProjet/@Model.Projet.ProjetId">
+                        <button class="btn-green">Terminer la lecture</button>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+</main>
+

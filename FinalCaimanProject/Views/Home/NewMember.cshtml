@@ -1,0 +1,130 @@
+﻿@model FinalCaimanProject.VM.SaveMemberViewModel
+@if (ViewBag.PasSpe != null)
+{
+    <div class="container">
+        <div class="alert alert-danger container" role="alert">
+            <h4 class="alert-heading">Non autorise!!</h4>
+            <p>@ViewBag.PasSpe</p>
+        </div>
+    </div>
+}
+<main class="main-content">
+    <div class="block">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-white">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Tableau de bord</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Nouveau membre</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-12">
+                    <div class="departmentDesc">
+                        <h1>Nouveau membre</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="simple-card">
+                        <div class="simple-card__content">
+                            <form action="#" method="post" id="memberForm" class="formular">
+                                @Html.AntiForgeryToken()
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 mb-5">
+                                        @Html.LabelFor(model => model.Member.MemberName)
+                                        @Html.TextBoxFor(model => model.Member.MemberName, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Member.MemberName, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-6 mb-5">
+                                        @Html.LabelFor(model => model.Member.MemberPnom)
+                                        @Html.TextBoxFor(model => model.Member.MemberPnom, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Member.MemberPnom, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form__group">
+                                    <div class="form__radio-group">
+                                        <input type="radio" class="form__radio-input" id="homme" name="MemberSex" value="Masculin" />
+                                        @* @Html.LabelFor(model=>model.Member.MemberSex, new{@class= "form__radio-input", type ="radio", value="Masculin" , id ="homme"})*@
+                                        <label for="homme" class="form__radio-label">
+                                            <span class="form__radio-button"></span>
+                                            Masculin
+                                        </label>
+                                    </div>
+
+                                    <div class="form__radio-group">
+                                        <input type="radio" class="form__radio-input" id="femme" name="MemberSex" value="Feminin" />
+                                        @*  @Html.LabelFor(model => model.Member.MemberSex, new { @class = "form__radio-input", type = "radio", value = "Masculin", id = "femme" })*@
+                                        <label for="femme" class="form__radio-label">
+                                            <span class="form__radio-button"></span>
+                                            Féminin
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-5">
+                                    @Html.LabelFor(model => model.Member.MemberDescription)
+                                    @Html.TextAreaFor(model => model.Member.MemberDescription, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Member.MemberDescription, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 mb-5">
+                                        @Html.LabelFor(model => model.Member.MemberNaissance)
+                                        @Html.TextBoxFor(model => model.Member.MemberNaissance, new { @class = "form-control", type = "date" })
+                                        @Html.ValidationMessageFor(model => model.Member.MemberNaissance, "", new { @class = "text-danger" })
+                                        <p class="text-danger">@ViewData["errordate"]</p>
+                                    </div>
+                                    <div class="form-group col-md-6 mb-5">
+                                        @Html.LabelFor(model => model.Member.MemberLieuNaissance)
+                                        @Html.TextBoxFor(model => model.Member.MemberLieuNaissance, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Member.MemberLieuNaissance, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 mb-5">
+                                        @Html.LabelFor(model => model.Member.MemberMail)
+                                        @Html.TextBoxFor(model => model.Member.MemberMail, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Member.MemberMail, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-6 mb-5">
+                                        @Html.LabelFor(model => model.Member.MemberPhone)
+                                        @Html.TextBoxFor(model => model.Member.MemberPhone, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Member.MemberPhone, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 mb-5">
+                                        @Html.LabelFor(model => model.Member.MemberCommune)
+                                        @Html.TextBoxFor(model => model.Member.MemberCommune, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Member.MemberCommune, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-6 mb-5">
+                                        @Html.LabelFor(model => model.Member.MemberQuartier)
+                                        @Html.TextBoxFor(model => model.Member.MemberQuartier, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Member.MemberQuartier, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 mb-5">
+                                        @Html.LabelFor(model => model.Member.TransportId)
+                                        @Html.DropDownListFor(model => model.Member.TransportId, new SelectList(Model.Transports, "TransportId", "TranportName"), new { @class = "form-control" })
+                                    </div>
+
+                                    <div class="form-group col-md-6 mb-5">
+                                        @Html.LabelFor(model => model.Member.SpecialiteId)
+                                        @Html.DropDownListFor(model => model.Member.SpecialiteId, new SelectList(Model.Specialites, "SpecialiteId", "SpecialiteName"), new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn-green">
+                                    Enregistrer
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

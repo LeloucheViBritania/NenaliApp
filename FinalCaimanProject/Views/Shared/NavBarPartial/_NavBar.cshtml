@@ -1,0 +1,77 @@
+﻿@if(User.Identity.IsAuthenticated)
+{
+    <div class="top-bar">
+        <div class="block">
+            <div class="container-fluid">
+                <h3>@User.Identity.Name</h3>
+            </div>
+        </div>
+    </div>
+        <nav class="navigation-bar">
+            <div class="block">
+                <div class="container-fluid position-relative">
+                    <div class="nav-content">
+
+                        <a href="@Url.Action("Index", "Home")">
+                            <img src="~/Content/icons/crocodile.svg" alt="logo caiman" class="img-logo">
+                        </a>
+                        <ul class="main-menu" id="menu-list">
+                            <li>
+                                @Html.ActionLink("Accueil", "Index", "Home")
+                                <img src="~/Content/icons/arrowb.svg" alt="arrow">
+                            </li>
+                            <li>
+                                @Html.ActionLink("Departements", "Departement", "Departement")
+                                <img src="~/Content/icons/arrowb.svg" alt="arrow">
+                            </li>
+                            <li>
+                                <div class="dropdown">
+                                    <button class="dropbtn">Archives</button>
+                                    <div class="dropdown-content">
+                                        <a href="@Url.Action("ArchiveAllProjet","Home")">Projets terminés <img src="~/Content/icons/arrowb.svg" alt="arrow"></a>
+                                        <a href="@Url.Action("OldMembers", "Home")">Anciens membres <img src="~/Content/icons/arrowb.svg" alt="arrow"></a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                @Html.ActionLink("Contact", "Contact", "Contact")
+                                <img src="~/Content/icons/arrowb.svg" alt="arrow">
+                            </li>
+                        </ul>
+                    </div>
+
+                    <ul class="nav-actions">
+                        <li>
+                            <a href="@Url.Action("NewMember", "Home")">
+                                <div>
+                                    <img src="~/Content/icons/adduser.svg" alt="add">
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "NewProjet")">
+                                <div>
+                                    <img src="~/Content/icons/rocket.svg" alt="add">
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("AdminInfo","Account")">
+                                <div>
+                                    <img src="~/Content/img/user.png" alt="username" class="admin">
+                                </div>
+                            </a>
+                        </li>
+                        <li class="respm">
+                            <div id="resmenu">
+                                <img src="~/Content/icons/menu.svg" alt=""> 
+                            </div>
+                        </li>
+                        <li>
+                            @Html.ActionLink("Se Déconnecter", "LogOut", "Account")
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+}

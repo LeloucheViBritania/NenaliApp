@@ -1,0 +1,60 @@
+﻿@model IEnumerable<FinalCaimanProject.Models.Specialite>
+
+<main class="main-content">
+    <div class="block">
+        <div class="container-fluid">
+            <div class="row department-row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="departmentDesc">
+                        <h1>Liste des départements NaN Business</h1>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Ipsum necessitatibus
+                            neque quaerat, minus dicta in aspernatur
+                            est laborum fugiat maxime id maiores quisquam
+                            itaque, minima quae at asperiores repellat ipsa.
+                        </p>
+
+                        <div class="row">
+                            @foreach (var item in ViewBag.Spe)
+                            {
+                                <div class="col-6">
+                                    <ol class="deptlist ">
+                                        <li><div class="square" style="background-color:@item.SpecialiteColor">&nbsp;</div></li>
+                                        <li>
+                                            <h5>@item.SpecialiteName</h5>
+
+                                        </li>
+                                    </ol>
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="col-12 mb-5">
+
+                        <button>@Html.ActionLink("Ajouter Spécialité", "Ajouter", null, new { @class = "btn-green" })</button>
+
+                    </div>
+                    <div class="row">
+                        @foreach (var item in ViewBag.Spe)
+                        {
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-12 col-xl-12">
+                                <div class="team-card" style="border:1.5px solid @item.SpecialiteColor">
+                                    <a href="../Departement/VueDepartement/@item.SpecialiteId">
+                                        <div class="team-card__illustration">
+                                            <img src="@item.Url_Image/@item.ImageSpecialite" alt="departement">
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

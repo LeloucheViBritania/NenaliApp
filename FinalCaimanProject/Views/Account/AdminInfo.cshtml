@@ -1,0 +1,97 @@
+﻿@model FinalCaimanProject.VM.ViewModelAdmin
+    <main class="main-content">
+        <div class="block">
+            <div class="container-fluid">
+                <div class="row">
+                    @if (ViewBag.Error != null)
+                    {
+                        <p class="text-danger">Vos mots de passe ne correspondent pas</p>
+                    }
+                    <div class="col-12">
+                        <div class="simple-card">
+                            <div class="simple-card__content">
+                                <img src="~/Content/icons/crocodile.svg" class="admcaiman" alt="logo caiman">
+                                <h2 class="mt-2">@User.Identity.Name</h2>
+                                <div class="d-flex align-items-center">
+                                    <span>Administrateur</span>
+                                </div>
+                                <p style="float:right;font-size:14px; margin-top:-20px">
+                                    @Html.ActionLink("Créer un autre compte", "Register", "Account", new { @class = "btn-green" })
+                                </p>
+                            </div>
+                        </div>
+                        @foreach (var item in Model.Users.Where(x => x.UserMail == User.Identity.Name))
+                        {
+                            <div class="simple-card">
+                                <div class="simple-card__content">
+
+                                    <h2 class="mt-2 --mini">Informations</h2>
+
+                                    <div class="row mt-5">
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                            <div class="mb-4 brb">
+                                                <h5>Nom:</h5>
+                                                <h3>@item.UserName</h3>
+                                            </div>
+                                            <div class="mb-4 brb">
+                                                <h5>Prénoms:</h5>
+                                                <h3>@item.UserPnom</h3>
+                                            </div>
+                                            <div class="mb-4 brb">
+                                                <h5>Sexe:</h5>
+                                                <h3>@item.UserSexe</h3>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+                                            <div class="mb-4 brb">
+                                                <h5>Téléphone:</h5>
+                                                <h3>+225 @item.UserPhone</h3>
+                                            </div>
+                                            <div class="mb-4 brb">
+                                                <h5>Mail:</h5>
+                                                <h3>@item.UserMail</h3>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                            <div class="simple-card">
+                                <div class="simple-card__content">
+
+                                    <h2 class="mt-2 --mini">Modifier le mot de passe</h2>
+
+                                    <form action="#" class="formular" method="post">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6 mb-5">
+                                                <label for="mdp">Mot de passe</label>
+                                                <input type="password" class="form-control" id="mdp" name="Password" value="@item.Password">
+                                            </div>
+                                            <div class="form-group col-md-6 mb-5">
+                                                <label for="mdp2">Confirmer mon mot de passe</label>
+                                                <input type="password" class="form-control" id="mdp2" name="ConfirmPassword" value="@item.ConfirmPassword">
+                                            </div>
+                                        </div>
+
+
+
+                                        <button type="submit" class="btn-green">
+                                            Modifier
+                                        </button>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        }
+                        <h2 style="color:aquamarine; font-size:15px">@ViewData["Message"]</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
